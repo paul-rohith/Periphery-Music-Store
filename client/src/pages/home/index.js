@@ -1,53 +1,78 @@
-import React, { useState } from 'react'
-import {BrowserRouter} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+/*import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { render } from "react-dom";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";*/
 
-import Header from "../../components/common/header";
 import TabOptions from '../../components/common/tabOptions';
-import Footer from '../../components/common/footer';
-import Pop from "../../components/Pop"
-import Rock from "../../components/Rock"
-import RnB from "../../components/RnB"
-import OrderCart from "../../components/common/OrderCart"
+import Pop from '../../components/Pop';
+import Rock from '../../components/Rock';
+import RnB from '../../components/RnB';
 
-const HomePage = () => {
-    const [activeTab, setActiveTab] = useState("Pop");
+const HomePage = ({ cid }) => {
+  const [activeTab, setActiveTab] = useState('Pop');
+  const [albums, setAlbums] = useState([]);
+
+  const getCorrectScreen = (tab) => {
+    switch (tab) {
+      case 'Pop':
+        return <Pop albums={albums} cid={cid} />;
+      case 'Rock':
+        return <Pop albums={albums} cid={cid} />;
+      case 'RnB':
+        return <Pop albums={albums} cid={cid} />;
+      default:
+        return <Pop albums={albums} cid={cid} />;
+    }
+  };
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        /*const response = await axios.post(
+            LOGIN_URL,
+            JSON.stringify({ user, pwd, role }),
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              withCredentials: true,
+            }
+          );*/
+        const response = await fetch(
+          `http://localhost:3500/user/products/${activeTab}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        if (response.status === 200) {
+          const data = await response.json();
+          console.log(data);
+          setAlbums(data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getProducts();
+  }, [activeTab]);
 
   return (
     <div>
-        <BrowserRouter>
-        <Header />
-        <TabOptions activeTab = {activeTab} setActiveTab = {setActiveTab}/>
-        {getCorrectScreen(activeTab)}
-        
-        <Footer/>
-        </BrowserRouter>
+      <TabOptions activeTab={activeTab} setActiveTab={setActiveTab} />
+      {getCorrectScreen(activeTab)}
     </div>
-  )
-}
-
-// render (
-//     <BrowserRouter>
-//         <Routes>
-//             <Route path = "/" element = {<Pop/>}/>
-//             <Route path = "/ordercart" element = {<OrderCart/>}/>
-//             {/* <Route path="/"element={<Navigate t o= "/" replace />}/> */}
-//         </Routes>
-//     </BrowserRouter>,
-//     document.getElementById("root")
-// )
-
-const getCorrectScreen = (tab) => {
-    switch(tab) {
-        case "Pop":
-            return <Pop/>
-        case "Rock":
-            return <Rock/>
-        case "RnB":
-            return <RnB/>
-        default:
-            return <Pop/>
-    }
+  );
 };
+
+/*render (
+    <BrowserRouter>
+        <Routes>
+            <Route path = "/ordercart" element = {<OrderCart/>}/>
+        </Routes>
+    </BrowserRouter>,
+    document.getElementById("root")
+)*/
 export default HomePage;

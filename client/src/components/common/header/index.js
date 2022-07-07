@@ -1,43 +1,45 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import "./header.css"
-import periphery from '../../../images/periphery.png'
-import user from '../../../images/user.png'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './header.css';
+import 'font-awesome/css/font-awesome.min.css';
+import periphery from '../../../images/periphery.png';
+import userimg from '../../../images/user.png';
 
-const Header = () => {
+const Header = ({ user }) => {
   return (
-  <div className="max-width header">
-    <img src = {periphery} alt = 'Periphery' className='header-logo'/>
+    <div className="max-width header">
+      <Link to="/">
+        <img src={periphery} alt="Periphery" className="header-logo" />
+      </Link>
 
-    <div className='header-right'>
-      <div className = 'header-cart-container'>
-        <div className='cart-wrapper'>
-          <div className='cart-icon-name'>
-            <ul>
-              <li>
-                <Link to = "/cart" className='linkcart'>
-                <i className="fi fi-rr-shopping-cart absolute-center cart icon"/>Cart</Link>
-              </li>
-            </ul>
-          
+      <div className="header-right">
+        <div className="header-cart-container">
+          <div className="cart-wrapper">
+            <div className="cart-icon-name">
+              <Link to="/cart">
+                <i className="fa fa-shopping-cart " color="#000000"></i>
+              </Link>
+            </div>
           </div>
+          <div className="cart-separator"></div>
+          <div className="header-searchbar"></div>
+          <i className="fa fa-search" color="#000000"></i>
+          <input
+            placeholder="Albums available down below!"
+            className="search-input"
+          ></input>
         </div>
-        <div className='cart-separator'></div>
-        <div className='header-searchbar'></div>
-        <i className="fi fi-rr-search search-icon"></i>
-        <input placeholder='Albums available down below!' className='search-input'></input>
-      </div>
-      <div>
-        <div className='profile-wrapper'>
-        <img src = {user} alt = 'User' className='header-profile-image'/>
-        <span className='header-username'>User</span>
-        <i className="fi fi-rr-angle-down absolute-center profile-options-icon"></i>
+        <div>
+          <Link to="/dashboard">
+            <div className="profile-wrapper">
+              <img src={userimg} alt="User" className="header-profile-image" />
+              <span className="header-username">{user.first_name}</span>
+              <i className="fi fi-rr-angle-down absolute-center profile-options-icon"></i>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
-  </div>
-
-  
   );
 };
 

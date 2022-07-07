@@ -1,7 +1,7 @@
 module.exports = {
-    user: 'node_user',
-    host: 'localhost',
-    database: 'musicstore',
-    password: 'node_password',
-    port: 5432
+  user: 'postgres',
+  host: 'localhost',
+  database: 'musicstore',
+  password: 'postgres',
+  port: 5432,
 };

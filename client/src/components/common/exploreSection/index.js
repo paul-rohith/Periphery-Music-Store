@@ -1,27 +1,18 @@
-import React, {useState} from 'react'
-import ExploreCard from "./exploreCard";
-import "./exploreSection.css";
+import React from 'react';
+import ExploreCard from './exploreCard';
+import './exploreSection.css';
 
-const ExploreSection = ({list, collectionName}) => {
-
-  const [cart, setCart] = useState([]);
-
-  const addToCart = ({albums}) => {
-  setCart([...cart, albums]);
-}
-
-
+const ExploreSection = ({ list, cid, collectionName }) => {
   return (
-    <div className='max-width explore-section'>
-      <div className='collection-title'>{collectionName}</div>
-      <div className='explore-grid'>
-        {list.map((albums)=> {
-          return <ExploreCard albums = {albums}/>
-
+    <div className="max-width explore-section">
+      <div className="collection-title">{collectionName}</div>
+      <div className="explore-grid">
+        {list.map((albums) => {
+          return <ExploreCard albums={albums} cid={cid} />;
         })}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ExploreSection
+export default ExploreSection;

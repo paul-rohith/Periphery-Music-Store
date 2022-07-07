@@ -1,0 +1,16 @@
+.text {
+    background-color: #FDF6F0;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.text-text {
+    margin-top: 30px;
+    font-size: 25px;
+}
+
+.user-content {
+    border: 2px solid var(--gray);
+    border-radius: 10px;
+}
